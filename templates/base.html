@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Company News{% endblock %}</title>
+</head>
+<body>
+<header>
+    <h1>Company News</h1>
+    <nav>
+        <a href="{% url 'news:article_list' %}">Home</a> |
+        <a href="{% url 'pages:company_profile' %}">Company Profile</a> |
+        <a href="{% url 'contact:contact' %}">Contact</a>
+    </nav>
+    <hr>
+</header>
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+        <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% block content %}{% endblock %}
+</body>
+</html>

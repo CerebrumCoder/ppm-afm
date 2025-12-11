@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}News - Company News{% endblock %}
+{% block content %}
+<h2>Latest Articles</h2>
+<ul>
+    {% for article in articles %}
+        <li>
+            <a href="{% url 'news:article_detail' article.slug %}">{{ article.title }}</a>
+            {% if article.published_at %} - {{ article.published_at }}{% endif %}
+        </li>
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
