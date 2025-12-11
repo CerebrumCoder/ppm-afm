@@ -1,15 +1,65 @@
 {% extends "base.html" %}
-{% block title %}News - Company News{% endblock %}
+
+{% block title %}Artikel AFM - PPM Al-Faqih Mandiri{% endblock %}
+
 {% block content %}
-<h2>Latest Articles</h2>
-<ul>
-    {% for article in articles %}
-        <li>
-            <a href="{% url 'news:article_detail' article.slug %}">{{ article.title }}</a>
-            {% if article.published_at %} - {{ article.published_at }}{% endif %}
-        </li>
-    {% empty %}
-        <li>No articles yet.</li>
-    {% endfor %}
-</ul>
+<section class="mb-8">
+  <div class="mb-4 flex items-center justify-between gap-2">
+    <div>
+      <h1 class="text-xl font-semibold tracking-tight sm:text-2xl">
+        Artikel AFM
+      </h1>
+      <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+        Kumpulan berita, pengumuman, dan cerita kegiatan di PPM Al-Faqih Mandiri.
+      </p>
+    </div>
+  </div>
+
+  {% if articles %}
+    <div class="grid gap-5 md:grid-cols-2">
+      {% for article in articles %}
+        <a
+          href="{% url 'news:article_detail' article.pk %}"
+          class="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white/80 shadow-sm ring-0 transition hover:-translate-y-0.5 hover:shadow-md hover:ring-1 hover:ring-lime-300 dark:border-slate-700 dark:bg-slate-900/70 dark:hover:ring-lime-500/60"
+        >
+          {% if article.thumbnail %}
+            <div class="h-40 w-full overflow-hidden bg-slate-200">
+              <img
+                src="{{ article.thumbnail.url }}"
+                alt="{{ article.title }}"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+          {% endif %}
+          <div class="flex flex-1 flex-col p-4">
+            <p class="text-[11px] uppercase tracking-wide text-lime-700 dark:text-lime-300">
+              {% if article.published_at %}
+                {{ article.published_at|date:"j F Y" }}
+              {% else %}
+                Belum dijadwalkan
+              {% endif %}
+            </p>
+            <h2 class="mt-1 text-sm font-semibold leading-snug sm:text-base">
+              {{ article.title }}
+            </h2>
+            {% if article.excerpt %}
+              <p class="mt-1 line-clamp-3 text-xs text-slate-600 dark:text-slate-300">
+                {{ article.excerpt }}
+              </p>
+            {% endif %}
+            {% if article.author %}
+              <p class="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+                Oleh {{ article.author.get_full_name|default:article.author.username }}
+              </p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-sm text-slate-600 dark:text-slate-300">
+      Belum ada artikel yang dipublikasikan.
+    </p>
+  {% endif %}
+</section>
 {% endblock %}

@@ -1,0 +1,81 @@
+<footer class="mt-10 border-t-4 border-[var(--nav-link-color-active)] bg-[var(--primary-color)] text-[var(--secondary-color)] text-sm">
+  <div class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-8 md:grid md:grid-cols-3 md:gap-10">
+    <!-- Kolom kiri: logo + quote -->
+    <div class="space-y-3">
+      <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--nav-link-color-active)] text-[var(--primary-color)] font-extrabold shadow">
+          <!-- placeholder logo, ganti dengan img/svg kalau sudah ada -->
+          <span class="text-xl leading-none">🏠</span>
+        </div>
+        <div class="flex flex-col leading-snug">
+          <span class="text-sm font-semibold tracking-wide">PPM AFM © 2025</span>
+        </div>
+      </div>
+      <p class="max-w-xs text-xs leading-relaxed text-lime-100/90">
+        "Sebaik-baiknya kalian adalah yang mengejar dunia dan akhirat."
+      </p>
+    </div>
+
+    <!-- Kolom tengah: tautan langsung -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold">Tautan Langsung</h3>
+      <ul class="space-y-1.5 text-xs md:text-sm">
+        <li>
+          <a href="{% url 'pages:company_profile' %}" class="hover:text-[var(--nav-link-color-active)]">
+            Tentang AFM
+          </a>
+        </li>
+        <li>
+          <a href="#struktur-kepengurusan" class="hover:text-[var(--nav-link-color-active)]">
+            Struktur Kepengurusan
+          </a>
+        </li>
+        <li>
+          <a href="#fasilitas" class="hover:text-[var(--nav-link-color-active)]">
+            Fasilitas
+          </a>
+        </li>
+        <li>
+          <a href="#pendaftaran" class="hover:text-[var(--nav-link-color-active)]">
+            Pendaftaran
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Kolom kanan: kontak + sosmed -->
+    <div class="space-y-3">
+      <h3 class="text-sm font-semibold">Hubungi kami</h3>
+      <div class="space-y-1.5 text-xs md:text-sm">
+        <p>Jl. Sawo No.33b, Pondok Cina, Depok</p>
+        <p>No. Telepon: +62 858-8268-5011</p>
+        <p>Email: ppm.alfaqihmandiri[AT]gmail.com</p>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <!-- LinkedIn -->
+        <a href="#" class="flex h-8 w-8 items-center justify-center rounded-md bg-white text-[var(--primary-color)] text-xs font-semibold shadow hover:bg-lime-100"
+           aria-label="LinkedIn">
+          in
+        </a>
+        <!-- Instagram -->
+        <a href="#" class="flex h-8 w-8 items-center justify-center rounded-md bg-white text-[var(--primary-color)] text-xs font-semibold shadow hover:bg-lime-100"
+           aria-label="Instagram">
+          ig
+        </a>
+        <!-- YouTube -->
+        <a href="#" class="flex h-8 w-8 items-center justify-center rounded-md bg-white text-[var(--primary-color)] text-xs font-semibold shadow hover:bg-lime-100"
+           aria-label="YouTube">
+          yt
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-lime-700/40">
+    <div class="mx-auto max-w-6xl px-4 py-3 text-center text-[11px] text-lime-100/90">
+      Dibuat dengan <span class="text-red-400">❤</span> oleh Mahasiswa AFM © 2025 |
+      Terdaftar di Kementerian Agama Republik Indonesia 2020
+    </div>
+  </div>
+</footer>

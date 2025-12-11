@@ -1,8 +1,9 @@
 from django.urls import path
-from . import views
+from pages_ppm.views import home, company_profile
 
 app_name = "pages"
 
 urlpatterns = [
-    path("company/", views.company_profile, name="company_profile"),
+    path("", home, name="home"),
+    path("company/", company_profile, name="company_profile"),
 ]

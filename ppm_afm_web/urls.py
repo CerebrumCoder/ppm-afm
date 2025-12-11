@@ -22,10 +22,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    # public
-    path("", include("news_ppm.urls", namespace="news")),  # home = daftar artikel
+    # Semua halaman publik utama (Beranda, Tentang, dst.) dari pages_ppm
     path("", include("pages_ppm.urls", namespace="pages")),
-    path("contact/", include("contacts_ppm.urls", namespace="contact")),
+
+    # public
+    path("artikel/", include("news_ppm.urls", namespace="news")),
 ]
 
 if settings.DEBUG:

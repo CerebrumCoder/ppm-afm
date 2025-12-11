@@ -29,14 +29,11 @@ class Tag(models.Model):
     
 class NewsArticle(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    excerpt = models.TextField(blank=True)
     content = models.TextField()
     thumbnail = models.ImageField(upload_to='news_thumbnails/', blank=True, null=True)
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
 
-    tags = models.ManyToManyField(Tag, blank=True)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     is_published = models.BooleanField(default=True)
