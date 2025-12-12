@@ -17,7 +17,6 @@
       preload="metadata"
       poster="{% static 'img/about/about-thumb.png' %}"
     >
-      <!-- pakai URL lama, atau ganti kalau punya sendiri -->
       <source src="https://drive.bayar.id/s/Zoi7A45nVLsu3Bk/download" type="video/mp4">
     </video>
     <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/70"></div>
@@ -51,28 +50,141 @@
       </p>
     </div>
 
-    <!-- Grid 2–3 kolom -->
+    <!-- Grid 2–3 kolom (clickable) -->
     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- ganti nama file sesuai aset kamu di static/img/about/... -->
-      <div class="overflow-hidden rounded-2xl">
-        <img src="{% static 'img/about/img-1.avif' %}" alt="Kegiatan PPM AFM" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105">
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <img src="{% static 'img/about/img-2.avif' %}" alt="Kegiatan PPM AFM" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105">
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <img src="{% static 'img/about/img-3.avif' %}" alt="Kegiatan PPM AFM" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105">
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <img src="{% static 'img/about/img-4.avif' %}" alt="Kegiatan PPM AFM" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105">
-      </div>
-      <div class="overflow-hidden rounded-2xl">
-        <img src="{% static 'img/about/img-5.avif' %}" alt="Kegiatan PPM AFM" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105">
-      </div>
-      <!-- kamu bisa tambah lagi card gambar di sini -->
+      <!-- Contoh data: sesuaikan judul & deskripsi dengan foto kamu -->
+      <button type="button"
+        class="group relative overflow-hidden rounded-2xl text-left"
+        data-src="{% static 'img/about/img-1.avif' %}"
+        data-title="Kajian Qur'an Pagi"
+        data-desc="Santri mengikuti kajian Qur'an pagi bersama dewan guru di Masjid Fatimah."
+      >
+        <img
+          src="{% static 'img/about/img-1.avif' %}"
+          alt="Kegiatan PPM AFM - Kajian Qur'an"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
+          <p class="text-[11px] font-semibold text-white">
+            Foto Pagi PPM AFM
+          </p>
+          <p class="text-[10px] text-slate-200">
+            Asri dan bersihnya PPM AFM pada pagi hari.
+          </p>
+        </div>
+      </button>
+
+      <button type="button"
+        class="group relative overflow-hidden rounded-2xl text-left"
+        data-src="{% static 'img/about/img-2.avif' %}"
+        data-title="Kegiatan Organisasi Santri"
+        data-desc="Pengurus OSF AFM sedang mengadakan musyawarah program kerja."
+      >
+        <img
+          src="{% static 'img/about/img-2.avif' %}"
+          alt="Kegiatan organisasi santri"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
+          <p class="text-[11px] font-semibold text-white">
+            AFTHER
+          </p>
+          <p class="text-[10px] text-slate-200">
+            Kegiatan outbonding seluruh civitas PPM AFM yang diselenggarakan oleh pamong.
+          </p>
+        </div>
+      </button>
+
+      <button type="button"
+        class="group relative overflow-hidden rounded-2xl text-left"
+        data-src="{% static 'img/about/img-3.avif' %}"
+        data-title="Kegiatan Totalan"
+        data-desc="Santri melakukan piket totalan untuk menjaga kebersihan asrama."
+      >
+        <img
+          src="{% static 'img/about/img-3.avif' %}"
+          alt="Kegiatan totalan santri"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
+          <p class="text-[11px] font-semibold text-white">
+            DOCSDAY 2024
+          </p>
+          <p class="text-[10px] text-slate-200">
+            Foto bersama seluruh civitas PPM AFM.
+          </p>
+        </div>
+      </button>
+
+      <button type="button"
+        class="group relative overflow-hidden rounded-2xl text-left"
+        data-src="{% static 'img/about/img-4.avif' %}"
+        data-title="Kegiatan Silat ASAD"
+        data-desc="Latihan rutin silat ASAD untuk menjaga kebugaran dan kedisiplinan."
+      >
+        <img
+          src="{% static 'img/about/img-4.avif' %}"
+          alt="Latihan silat santri"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
+          <p class="text-[11px] font-semibold text-white">
+            AFTHER
+          </p>
+          <p class="text-[10px] text-slate-200">
+            Kegiatan outbonding seluruh civitas PPM AFM yang diselenggarakan oleh pamong.
+          </p>
+        </div>
+      </button>
+
+      <button type="button"
+        class="group relative overflow-hidden rounded-2xl text-left"
+        data-src="{% static 'img/about/img-5.avif' %}"
+        data-title="Kegiatan Kebersamaan"
+        data-desc="Kegiatan kebersamaan santri di luar jadwal belajar sebagai penyegar suasana."
+      >
+        <img
+          src="{% static 'img/about/img-5.avif' %}"
+          alt="Kebersamaan santri PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
+          <p class="text-[11px] font-semibold text-white">
+            Kebersamaan Santri
+          </p>
+          <p class="text-[10px] text-slate-200">
+            Menguatkan ukhuwah dan rasa saling memiliki.
+          </p>
+        </div>
+      </button>
+
+      {# tambahkan lagi button serupa kalau kamu punya foto tambahan #}
     </div>
   </div>
 </section>
+
+<!-- MODAL GALERI -->
+<div id="gallery-modal"
+     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70">
+  <div class="w-full max-w-3xl px-4">
+    <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg dark:bg-slate-900">
+      <button
+        type="button"
+        id="gallery-close"
+        class="absolute right-2 top-2 z-10 rounded-full bg-black/60 px-2 py-1 text-[10px] font-semibold text-white hover:bg-black/80 dark:bg-black/70"
+      >
+        ✕
+      </button>
+      <div class="bg-black">
+        <img id="gallery-modal-img" src="" alt="Foto kegiatan AFM" class="max-h-[70vh] w-full object-contain">
+      </div>
+      <div class="space-y-1 px-4 py-3 text-xs text-slate-800 dark:text-slate-100">
+        <h3 id="gallery-modal-title" class="text-sm font-semibold"></h3>
+        <p id="gallery-modal-desc" class="text-[11px] text-slate-600 dark:text-slate-300"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- SEJARAH SINGKAT -->
 <section class="mb-12">
@@ -235,6 +347,49 @@
       </div>
     </div>
   </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("gallery-modal");
+      const modalImg = document.getElementById("gallery-modal-img");
+      const modalTitle = document.getElementById("gallery-modal-title");
+      const modalDesc = document.getElementById("gallery-modal-desc");
+      const modalClose = document.getElementById("gallery-close");
+
+      if (!modal) return;
+
+      // buka modal ketika klik item galeri
+      document.querySelectorAll("button[data-src][data-title]").forEach(btn => {
+        btn.addEventListener("click", function () {
+          const src = btn.dataset.src;
+          const title = btn.dataset.title || "";
+          const desc = btn.dataset.desc || "";
+
+          if (modalImg) modalImg.src = src;
+          if (modalTitle) modalTitle.textContent = title;
+          if (modalDesc) modalDesc.textContent = desc;
+
+          modal.classList.remove("hidden");
+        });
+      });
+
+      // tombol close
+      if (modalClose) {
+        modalClose.addEventListener("click", function () {
+          modal.classList.add("hidden");
+        });
+      }
+
+      // klik area gelap di luar card -> tutup modal
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+          modal.classList.add("hidden");
+        }
+      });
+    });
+  </script>
+
 </section>
 
 {% endblock %}
+
+
