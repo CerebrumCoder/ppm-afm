@@ -7,7 +7,7 @@ BASE_INPUT_CLASS = (
     "text-sm text-slate-900 shadow-sm "
     "focus:border-[var(--nav-link-color-active)] focus:outline-none "
     "focus:ring-2 focus:ring-[var(--nav-link-color-active)]/50 "
-    "dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50"
+    "dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50 datetime-wrapper"
 )
 
 FILE_INPUT_CLASS = (
@@ -32,11 +32,11 @@ class NewsArticleForm(forms.ModelForm):
         widget=forms.DateTimeInput(
             attrs={
                 "type": "datetime-local",
-                "class": BASE_INPUT_CLASS + " text-xs",
+                "class": BASE_INPUT_CLASS + " text-xs js-datetime-input",
             },
-            format="%Y-%m-%dT%H:%M",  # format value yang ditaruh di input HTML
+            format="%Y-%m-%dT%H:%M",
         ),
-        input_formats=["%Y-%m-%dT%H:%M"],  # format value yang diterima saat POST
+        input_formats=["%Y-%m-%dT%H:%M"],
     )
 
     class Meta:
@@ -73,5 +73,4 @@ class NewsArticleForm(forms.ModelForm):
             "thumbnail": forms.ClearableFileInput(
                 attrs={"class": FILE_INPUT_CLASS}
             ),
-            # tidak perlu widget untuk published_at di sini
         }

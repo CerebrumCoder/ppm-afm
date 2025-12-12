@@ -133,57 +133,71 @@
 
 <!-- JS untuk preview thumbnail -->
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const previewBox = document.getElementById("thumbnail-preview");
-  const fileInput = document.getElementById("id_thumbnail");
-  const urlInput = document.getElementById("thumb-link");
+  document.addEventListener("DOMContentLoaded", function () {
+    /* === Thumbnail preview === */
+    const previewBox = document.getElementById("thumbnail-preview");
+    const fileInput = document.getElementById("id_thumbnail");
+    const urlInput = document.getElementById("thumb-link");
 
-  function setPreview(src) {
-    if (!previewBox) return;
-    previewBox.innerHTML = "";
-    if (src) {
-      const img = document.createElement("img");
-      img.src = src;
-      img.className = "h-full w-full object-contain";
-      previewBox.appendChild(img);
-    } else {
-      previewBox.innerHTML = "<span>Belum ada gambar.</span>";
+    function setPreview(src) {
+      if (!previewBox) return;
+      previewBox.innerHTML = "";
+      if (src) {
+        const img = document.createElement("img");
+        img.src = src;
+        img.className = "h-full w-full object-contain";
+        previewBox.appendChild(img);
+      } else {
+        previewBox.innerHTML = "<span>Belum ada gambar.</span>";
+      }
     }
-  }
 
-  // initial: kalau sedang edit & sudah ada thumbnail
-  if (previewBox) {
-    const initial = previewBox.dataset.initialSrc;
-    if (initial) setPreview(initial);
-  }
+    if (previewBox) {
+      const initial = previewBox.dataset.initialSrc;
+      if (initial) setPreview(initial);
+    }
 
-  // preview upload file
-  if (fileInput) {
-    fileInput.addEventListener("change", function () {
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) {
-        if (urlInput && urlInput.value.trim()) {
-          setPreview(urlInput.value.trim());
-        } else {
-          setPreview(null);
+    if (fileInput) {
+      fileInput.addEventListener("change", function () {
+        const file = fileInput.files && fileInput.files[0];
+        if (!file) {
+          if (urlInput && urlInput.value.trim()) {
+            setPreview(urlInput.value.trim());
+          } else {
+            setPreview(null);
+          }
+          return;
         }
-        return;
-      }
-      const reader = new FileReader();
-      reader.onload = e => setPreview(e.target.result);
-      reader.readAsDataURL(file);
-    });
-  }
+        const reader = new FileReader();
+        reader.onload = e => setPreview(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    }
 
-  // preview dari URL kalau tidak ada file upload
-  if (urlInput) {
-    urlInput.addEventListener("input", function () {
-      const link = urlInput.value.trim();
-      if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-        setPreview(link || null);
-      }
+    if (urlInput) {
+      urlInput.addEventListener("input", function () {
+        const link = urlInput.value.trim();
+        if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+          setPreview(link || null);
+        }
+      });
+    }
+
+    /* === Klik input tanggal -> buka popup calendar === */
+    document.querySelectorAll(".js-datetime-input").forEach(input => {
+      input.addEventListener("click", function () {
+        try {
+          if (typeof input.showPicker === "function") {
+            input.showPicker();           // Chrome / Edge
+          } else {
+            input.focus();                // fallback untuk browser lain
+          }
+        } catch (err) {
+          input.focus();
+        }
+      });
     });
-  }
-});
+  });
 </script>
+
 {% endblock %}
