@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if mode == "edit" %}Edit Artikel{% else %}Tambah Artikel{% endif %} - PPM AFM
+{% endblock %}
+
+{% block content %}
+<section class="py-6">
+  <div class="mx-auto max-w-3xl">
+    <!-- Header kecil -->
+    <div class="mb-4 flex items-center justify-between gap-2">
+      <div>
+        <h1 class="text-lg font-semibold tracking-tight sm:text-xl">
+          {% if mode == "edit" %}Edit Artikel{% else %}Tambah Artikel{% endif %}
+        </h1>
+        {% if mode == "edit" and article %}
+          <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+            Mengedit: <span class="font-semibold">{{ article.title }}</span>
+          </p>
+        {% endif %}
+      </div>
+      <a
+        href="{% url 'news:article_admin_list' %}"
+        class="inline-flex items-center rounded-full border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
+      >
+        Kembali ke list
+      </a>
+    </div>
+
+    <!-- CARD FORM -->
+    <form method="post" enctype="multipart/form-data"
+          class="article-form space-y-5 rounded-3xl border border-slate-200 bg-white p-5 shadow-sm
+                 dark:border-slate-700 dark:bg-[#050b16]">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <!-- Judul -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+          Judul
+        </label>
+        {{ form.title }}
+        {{ form.title.errors }}
+      </div>
+
+      <!-- Konten -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+          Konten
+        </label>
+        {{ form.content }}
+        {{ form.content.errors }}
+      </div>
+
+      <!-- Kategori -->
+      <div class="space-y-1">
+        <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+          Kategori
+        </label>
+        {{ form.category }}
+        {{ form.category.errors }}
+      </div>
+
+      <!-- Published + Tanggal -->
+      <div class="grid gap-3 sm:grid-cols-[auto,1fr] items-center">
+        <div class="flex items-center gap-2">
+          {{ form.is_published }}
+          <label class="text-xs font-medium text-slate-700 dark:text-slate-100">
+            Published
+          </label>
+        </div>
+        <div class="space-y-1">
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+            Tanggal publish (opsional)
+          </label>
+          {{ form.published_at }}
+          {{ form.published_at.errors }}
+        </div>
+      </div>
+
+      <!-- Thumbnail + preview -->
+      <div class="grid gap-3 sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+        <div class="space-y-2">
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+            Thumbnail (upload, opsional)
+          </label>
+          {{ form.thumbnail }}
+          {{ form.thumbnail.errors }}
+
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-100 mt-3">
+            Thumbnail dari URL (opsional, hanya untuk preview)
+          </label>
+          <input
+            type="text"
+            id="thumb-link"
+            placeholder="https://contoh.com/gambar.jpg"
+            class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs text-slate-900 shadow-sm
+                   focus:border-[var(--nav-link-color-active)] focus:outline-none focus:ring-2 focus:ring-[var(--nav-link-color-active)]/50
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-50"
+          />
+          <p class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+            Jika kamu upload file, preview akan memakai file tersebut. Jika hanya mengisi URL,
+            preview memakai gambar dari link (tidak tersimpan di server).
+          </p>
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-xs font-medium text-slate-700 dark:text-slate-100">
+            Preview Thumbnail
+          </label>
+          <div
+            id="thumbnail-preview"
+            class="flex h-40 w-full items-center justify-center overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-50 text-[11px] text-slate-500
+                   dark:border-slate-600 dark:bg-slate-900 dark:text-slate-300"
+            data-initial-src="{% if article and article.thumbnail %}{{ article.thumbnail.url }}{% endif %}"
+          >
+            <span>Belum ada gambar.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button
+          type="submit"
+          class="rounded-full bg-[var(--nav-link-color-active)] px-5 py-2 text-sm font-semibold text-[var(--primary-color)] shadow hover:bg-lime-300"
+        >
+          Simpan
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- JS untuk preview thumbnail -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const previewBox = document.getElementById("thumbnail-preview");
+  const fileInput = document.getElementById("id_thumbnail");
+  const urlInput = document.getElementById("thumb-link");
+
+  function setPreview(src) {
+    if (!previewBox) return;
+    previewBox.innerHTML = "";
+    if (src) {
+      const img = document.createElement("img");
+      img.src = src;
+      img.className = "h-full w-full object-contain";
+      previewBox.appendChild(img);
+    } else {
+      previewBox.innerHTML = "<span>Belum ada gambar.</span>";
+    }
+  }
+
+  // initial: kalau sedang edit & sudah ada thumbnail
+  if (previewBox) {
+    const initial = previewBox.dataset.initialSrc;
+    if (initial) setPreview(initial);
+  }
+
+  // preview upload file
+  if (fileInput) {
+    fileInput.addEventListener("change", function () {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) {
+        if (urlInput && urlInput.value.trim()) {
+          setPreview(urlInput.value.trim());
+        } else {
+          setPreview(null);
+        }
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => setPreview(e.target.result);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // preview dari URL kalau tidak ada file upload
+  if (urlInput) {
+    urlInput.addEventListener("input", function () {
+      const link = urlInput.value.trim();
+      if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+        setPreview(link || null);
+      }
+    });
+  }
+});
+</script>
+{% endblock %}

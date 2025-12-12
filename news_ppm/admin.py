@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NewsArticle, Category, Tag
+from .models import NewsArticle, Category
 
 
 @admin.register(Category)
@@ -7,11 +7,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "is_active", "sort_order")
     list_filter = ("is_active",)
     prepopulated_fields = {"slug": ("name",)}
-
-
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ("name",)
 
 
 @admin.register(NewsArticle)

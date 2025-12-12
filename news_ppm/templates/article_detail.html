@@ -38,6 +38,14 @@
           class="h-64 w-full object-cover"
         />
       </div>
+    {% elif article.thumbnail_url %}
+      <div class="mb-4 overflow-hidden rounded-2xl">
+        <img
+          src="{{ article.thumbnail_url }}"
+          alt="{{ article.title }}"
+          class="h-64 w-full object-cover"
+        />
+      </div>
     {% endif %}
 
     <div class="prose max-w-none text-sm leading-relaxed text-slate-800 prose-p:mb-3 prose-headings:mt-4 prose-headings:mb-2 dark:prose-invert dark:text-slate-100">

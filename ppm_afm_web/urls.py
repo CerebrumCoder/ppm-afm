@@ -18,15 +18,20 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from pages_ppm import views as pages_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    path("panel/login/", pages_views.afm_login, name="login"),
+    path("panel/logout/", pages_views.afm_logout, name="logout"),
+    path("panel/password/", pages_views.afm_change_password, name="change_password"),
 
     # Semua halaman publik utama (Beranda, Tentang, dst.) dari pages_ppm
     path("", include("pages_ppm.urls", namespace="pages")),
 
     # public
-    path("artikel/", include("news_ppm.urls", namespace="news")),
+    path("article/", include("news_ppm.urls", namespace="news")),
 ]
 
 if settings.DEBUG:

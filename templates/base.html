@@ -1,9 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}PPM Al-Faqih Mandiri{% endblock %}</title>
+
+    <!-- Logo PPM AFM -->
+    <link rel="icon" href="{% static 'img/logo-ppm.png' %}" type="image/png">
 
     <!-- Google Font: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +24,9 @@
         darkMode: 'class',
         theme: {
           extend: {
+            screens: {
+                nav: "858px",
+            },
             fontFamily: {
               // sekarang font-sans = Plus Jakarta Sans
               sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
@@ -31,17 +38,39 @@
 
     <style>
       :root {
+        /* Background halaman */
+        --page-bg: #f3f4ec;
+
+        /* Hijau utama (nav, footer, beberapa card) */
         --primary-color: #0c2000;
+
+        /* Background terang global (dipakai kalau butuh var) */
         --secondary-color: #f5f5f5;
+
+        /* Hijau highlight (underline nav, tombol utama) */
         --nav-link-color-active: #A2D812;
         --nav-link-color-active-rgb: 162, 216, 18;
+
+        /* Gradient hijau untuk card/card statistik (light mode) */
         --card-left-color: #83fe37;
         --card-right-color: #48b108;
+
+        /* Hijau aktif untuk nav di dark mode */
         --dark-nav-link-color-active: #759b0e;
       }
 
+      /* --------- OVERRIDE UNTUK DARK MODE --------- */
+      /* Class .dark ditempel di <html> lewat JS */
       .dark {
-        --secondary-color: #020617;
+        /* Background halaman ketika dark mode */
+        --page-bg: #020807;          /* very dark green, bukan biru */
+
+        /* primary agak digelapkan, tapi tetap nuansa hijau */
+        --primary-color: #041008;
+
+        /* gradient card dibuat lebih “emerald” di dark mode */
+        --card-left-color: #4ade80; /* emerald-400 */
+        --card-right-color: #22c55e; /* emerald-500 */
       }
 
       .navbar {
@@ -57,97 +86,241 @@
         color: var(--nav-link-color-active);
       }
 
+      /* ACTIVE: teks hijau + sedikit bold  */
       .nav-link-active {
         color: var(--nav-link-color-active);
+        font-weight: 600;
       }
 
       .dark .nav-link-active {
         color: var(--dark-nav-link-color-active);
       }
 
-      .nav-link-active::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -0.35rem;
-        height: 3px;
-        border-radius: 9999px;
-        background: rgba(var(--nav-link-color-active-rgb), 1);
+      /* Garis bawah hijau HANYA di desktop (>= 858px) */
+      @media (min-width: 858px) {
+        .nav-link-active::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: -0.5rem;
+          height: 3px;
+          border-radius: 9999px;
+          background: rgba(var(--nav-link-color-active-rgb), 1);
+        }
+
+        .dark .nav-link-active::after {
+          background: var(--dark-nav-link-color-active);
+        }
       }
 
-      .dark .nav-link-active::after {
-        background: var(--dark-nav-link-color-active);
+      /* Transisi halus untuk seluruh halaman */
+      .theme-transition,
+      .theme-transition * {
+        transition-property: background-color, color, border-color;
+        transition-duration: 200ms;
+        transition-timing-function: ease-out;
+      }
+
+      /* Animasi kecil di icon toggle */
+      .theme-toggle-icon {
+        transition: transform 200ms ease-out;
+      }
+      html.dark .theme-toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      /* Scrollbar untuk carousel admin artikel (mobile) */
+      /* Umum (Firefox) */
+      .admin-articles-carousel {
+        scrollbar-width: thin; /* scrollbar tipis */
+        scrollbar-color: #9ca3af #e5e7eb; /* thumb, track (light mode default) */
+      }
+
+      /* Dark mode override (Firefox) */
+      html.dark .admin-articles-carousel {
+        scrollbar-color: #4b5563 #020817; /* thumb, track */
+      }
+
+      /* Chrome, Edge, Safari */
+      .admin-articles-carousel::-webkit-scrollbar {
+        height: 6px; /* tinggi scrollbar horizontal */
+      }
+
+      /* Track (background scrollbar) - light mode */
+      .admin-articles-carousel::-webkit-scrollbar-track {
+        background-color: #e5e7eb; /* slate-200 */
+        border-radius: 9999px;
+      }
+
+      /* Track - dark mode */
+      html.dark .admin-articles-carousel::-webkit-scrollbar-track {
+        background-color: #020817; /* very dark (mendekati background) */
+      }
+
+      /* Thumb (bagian yang bisa digeser) - light mode */
+      .admin-articles-carousel::-webkit-scrollbar-thumb {
+        background-color: #9ca3af; /* slate-400 */
+        border-radius: 9999px;
+      }
+
+      /* Thumb - dark mode */
+      html.dark .admin-articles-carousel::-webkit-scrollbar-thumb {
+        background-color: #4b5563; /* slate-600 */
+      }
+
+      /* Hover state */
+      .admin-articles-carousel::-webkit-scrollbar-thumb:hover {
+        background-color: #6b7280; /* slate-500 */
+      }
+      html.dark .admin-articles-carousel::-webkit-scrollbar-thumb:hover {
+        background-color: #9ca3af; /* slate-400 */
       }
     </style>
+
+
 </head>
 
-<body class="font-sans bg-[var(--secondary-color)] text-slate-900 dark:bg-slate-900 dark:text-slate-50">
-<header class="sticky top-0 z-50 shadow-md">
-    {% include "nav.html" %}
-</header>
+<body class="font-sans bg-[var(--page-bg)] text-slate-900 dark:bg-[var(--page-bg)] dark:text-slate-50 theme-transition">
+    <header class="sticky top-0 z-50 shadow-md">
+        {% include "nav.html" %}
+    </header>
 
-<main class="min-h-screen">
-  <div class="mx-auto max-w-6xl px-4 py-6">
-    {% if messages %}
-      <div class="mb-4 space-y-2">
-        {% for message in messages %}
-          <div class="rounded-lg border border-lime-300 bg-lime-50 px-4 py-2 text-sm text-lime-900 dark:border-lime-600 dark:bg-lime-900/20 dark:text-lime-100">
-            {{ message }}
-          </div>
-        {% endfor %}
-      </div>
-    {% endif %}
+    <main class="min-h-screen">
+        <div class="mx-auto max-w-6xl px-4 py-6">
+            {% if messages %}
+            <div class="mb-4 space-y-2">
+                {% for message in messages %}
+                <div class="rounded-lg border border-lime-300 bg-lime-50 px-4 py-2 text-sm text-lime-900 dark:border-lime-600 dark:bg-lime-900/20 dark:text-lime-100">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
 
-    {% block content %}{% endblock %}
-  </div>
-</main>
+            {% block content %}
+            
+            {% endblock %}
+        </div>
+    </main>
 
-<!-- (opsional) footer global kamu bisa taruh di sini -->
-{% include "footer.html" %}
+    <!-- (opsional) footer global kamu bisa taruh di sini -->
+    {% include "footer.html" %}
+    <script>
+        // Dark mode + persist di localStorage
+        (function() {
+            const root = document.documentElement;
+            const storedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-<script>
-  // Dark mode + persist di localStorage
-  (function() {
-    const root = document.documentElement;
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+            root.classList.add('dark');
+            }
 
-    if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
-      root.classList.add('dark');
-    }
+            function updateIcons() {
+            const isDark = root.classList.contains('dark');
+            const icon = document.getElementById('theme-toggle-icon');
+            const iconMobile = document.getElementById('theme-toggle-icon-mobile');
+            const label = document.getElementById('theme-toggle-label');
+            const labelMobile = document.getElementById('theme-toggle-label-mobile');
 
-    function updateIcons() {
-      const isDark = root.classList.contains('dark');
-      const icon = document.getElementById('theme-toggle-icon');
-      const iconMobile = document.getElementById('theme-toggle-icon-mobile');
-      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
-      if (iconMobile) iconMobile.textContent = isDark ? '☀️' : '🌙';
-    }
+            if (icon) {
+                icon.textContent = isDark ? '☀️' : '🌙';
+            }
 
-    function toggleTheme() {
-      const isDark = root.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      updateIcons();
-    }
+            if (iconMobile) {
+                iconMobile.textContent = isDark ? '☀️' : '🌙';
+            }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      const btn = document.getElementById('theme-toggle');
-      const btnMobile = document.getElementById('theme-toggle-mobile');
-      const mobileBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
+            if (label) {
+                label.textContent = isDark ? 'Light' : 'Dark';
+            }
 
-      if (btn) btn.addEventListener('click', toggleTheme);
-      if (btnMobile) btnMobile.addEventListener('click', toggleTheme);
-      if (mobileBtn && mobileMenu) {
-        mobileBtn.addEventListener('click', function () {
-          mobileMenu.classList.toggle('hidden');
-        });
-      }
+            if (labelMobile) {
+                labelMobile.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            }
+            }
 
-      updateIcons();
-    });
-  })();
-</script>
+            function toggleTheme() {
+            const isDark = root.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateIcons();
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+              const btn = document.getElementById('theme-toggle');
+              const btnMobile = document.getElementById('theme-toggle-mobile');
+              const mobileBtn = document.getElementById('mobile-menu-btn');
+              const mobileMenu = document.getElementById('mobile-menu');
+
+              if (btn) btn.addEventListener('click', toggleTheme);
+              if (btnMobile) btnMobile.addEventListener('click', toggleTheme);
+              if (mobileBtn && mobileMenu) {
+                  mobileBtn.addEventListener('click', function () {
+                  mobileMenu.classList.toggle('hidden');
+                  });
+            }
+
+            // Dropdown Struktur - desktop
+            const strukturToggle = document.getElementById('struktur-toggle');
+            const strukturMenu = document.getElementById('struktur-menu');
+
+            if (strukturToggle && strukturMenu) {
+                strukturToggle.addEventListener('click', function (e) {
+                e.stopPropagation();
+                strukturMenu.classList.toggle('hidden');
+                });
+
+                // Klik di luar dropdown → tutup
+                document.addEventListener('click', function (e) {
+                if (!strukturMenu.classList.contains('hidden')) {
+                    if (!strukturMenu.contains(e.target) && !strukturToggle.contains(e.target)) {
+                    strukturMenu.classList.add('hidden');
+                    }
+                }
+                });
+            }
+
+            // Dropdown Struktur - mobile
+            const strukturMobileToggle = document.getElementById('struktur-mobile-toggle');
+            const strukturMobileMenu = document.getElementById('struktur-mobile-menu');
+
+            if (strukturMobileToggle && strukturMobileMenu) {
+                strukturMobileToggle.addEventListener('click', function () {
+                strukturMobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // --- Toggle show/hide password (login & change password) ---
+            document.querySelectorAll("[data-toggle-password]").forEach(btnPw => {
+              const targetId = btnPw.getAttribute("data-toggle-password");
+              const input = document.getElementById(targetId);
+              const eyeOpen = btnPw.querySelector(".eye-open");
+              const eyeClosed = btnPw.querySelector(".eye-closed");
+
+              if (!input) return;
+
+              btnPw.addEventListener("click", function () {
+                const isPassword = input.type === "password";
+                input.type = isPassword ? "text" : "password";
+
+                // toggle icon
+                if (eyeOpen && eyeClosed) {
+                  if (isPassword) {
+                    eyeOpen.classList.add("hidden");
+                    eyeClosed.classList.remove("hidden");
+                  } else {
+                    eyeClosed.classList.add("hidden");
+                    eyeOpen.classList.remove("hidden");
+                  }
+                }
+              });
+            });
+
+            updateIcons();
+
+          });
+        })();
+    </script>
 </body>
 </html>

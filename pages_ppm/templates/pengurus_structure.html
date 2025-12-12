@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Struktur Kepengurusan PPM AFM{% endblock %}
+
+{% block content %}
+
+<!-- HERO: Struktur Kepengurusan -->
+<section id="struktur-kepengurusan"
+         class="relative mb-10 overflow-hidden rounded-3xl text-white">
+  <img
+    src="{% static 'img/structure/pengurus.avif' %}"
+    alt="Kepengurusan PPM AFM"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/70"></div>
+
+  <div class="relative z-10 px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
+    <div class="mx-auto max-w-3xl text-center space-y-4">
+      <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-lime-200">
+        Struktur Kepengurusan
+      </p>
+      <h1 class="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+        Pengurus PPM <span class="font-bold text-[var(--nav-link-color-active)]">Al-Faqih Mandiri</span>
+      </h1>
+      <p class="text-sm leading-relaxed text-slate-100 sm:text-base">
+        Di balik setiap kegiatan santri, ada jajaran pembina, dewan guru, dan pamong yang mengatur, menyiapkan,
+        dan menjaga ritme pembinaan — karena Allah dan konsisten.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- STRUKTUR 2024/2025 -->
+<section class="mb-12">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0">
+
+    <!-- Judul -->
+    <div class="mb-6 text-center">
+      <h2 class="text-xl font-semibold tracking-tight sm:text-2xl">
+        Struktur Kepengurusan PPM AFM 2024/2025
+      </h2>
+      <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+        Susunan Pembina, Wakil Pembina, Dewan Guru, dan Pamong PPM AFM.
+      </p>
+    </div>
+
+        <!-- Pembina & Wakil Pembina -->
+    <div class="mb-8 grid gap-5 sm:grid-cols-2">
+      <!-- Pembina -->
+      <div class="w-full max-w-xs mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/ketua.avif' %}"
+            alt="Pembina PPM AFM"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <p class="text-[11px] uppercase tracking-wide text-slate-200">
+              Pembina PPM AFM
+            </p>
+            <h3 class="text-sm font-semibold text-white">
+              H. Dedy Rinaldi S.T. M.M.
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wakil Pembina (Ust. Anji Hidayat) -->
+      <div class="w-full max-w-xs mx-auto overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/degur-4.avif' %}"
+            alt="Wakil Pembina PPM AFM - Ust. Anji Hidayat"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <p class="text-[11px] uppercase tracking-wide text-slate-200">
+              Wakil Pembina PPM AFM
+            </p>
+            <h3 class="text-sm font-semibold text-white">
+              Ust. Anji Hidayat
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dewan Guru -->
+    <div class="mb-4 text-center">
+      <h3 class="text-base font-semibold sm:text-lg">
+        Dewan Guru
+      </h3>
+      <p class="mt-1 text-[11px] text-slate-600 dark:text-slate-300">
+        Para ustaz yang membina santri dalam Qur’an, Hadits, dan ilmu Al-Islam.
+      </p>
+    </div>
+
+    <!-- 4 kartu dalam satu baris di desktop -->
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Ust. Prakash Faqih Arifin -->
+      <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/degur-1.avif' %}"
+            alt="Ust. Prakash Faqih Arifin"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <h4 class="text-sm font-semibold text-white">
+              Ust. Prakash Faqih Arifin
+            </h4>
+            <p class="text-[11px] text-slate-200">
+              Dewan Guru
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ust. Bachruddin -->
+      <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/degur-2.avif' %}"
+            alt="Ust. Bachruddin"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <h4 class="text-sm font-semibold text-white">
+              Ust. Bachruddin
+            </h4>
+            <p class="text-[11px] text-slate-200">
+              Dewan Guru
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ust. M. Sulthon Aulia -->
+      <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/degur-3.avif' %}"
+            alt="Ust. M. Sulthon Aulia"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <h4 class="text-sm font-semibold text-white">
+              Ust. M. Sulthon Aulia
+            </h4>
+            <p class="text-[11px] text-slate-200">
+              Dewan Guru
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ust. M. Ridho Asidiqi -->
+      <div class="w-full overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative aspect-[4/5]">
+          <img
+            src="{% static 'img/structure/degur-5.avif' %}"
+            alt="Ust. M. Ridho Asidiqi"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-900/90 via-slate-900/60 to-transparent px-4 pb-4 pt-10">
+            <h4 class="text-sm font-semibold text-white">
+              Ust. M. Ridho Asidiqi
+            </h4>
+            <p class="text-[11px] text-slate-200">
+              Dewan Guru
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAMONG -->
+<section class="mb-12">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0">
+    <div class="mb-4 text-center">
+      <h3 class="text-base font-semibold sm:text-lg">
+        Pamong Putra & Putri
+      </h3>
+      <p class="mt-1 text-[11px] text-slate-600 dark:text-slate-300">
+        Mendampingi santri dalam kehidupan sehari-hari di asrama, 24 jam.
+      </p>
+    </div>
+
+    <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
+                dark:border-slate-700 dark:bg-slate-900/80">
+      <img
+        src="{% static 'img/structure/pamong.avif' %}"
+        alt="Pamong PPM AFM"
+        class="w-full object-cover"
+        loading="lazy"
+      />
+      <div class="px-4 py-3 text-center text-xs text-slate-700 dark:text-slate-200">
+        Pamong PPM AFM 2024/2025
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRUKTUR SANTRI / ORGANISASI -->
+<!-- <section id="struktur-santri" class="mb-8">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0">
+    <div class="mb-4 text-center">
+      <h3 class="text-base font-semibold sm:text-lg">
+        Struktur Organisasi Santri
+      </h3>
+      <p class="mt-1 text-[11px] text-slate-600 dark:text-slate-300">
+        OSF (Organisasi Santri) mengelola program internal seperti taklim, kebersihan, keamanan, dan kegiatan sosial.
+      </p>
+    </div>
+
+    <div class="rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-4 py-4 text-xs text-slate-700 shadow-sm
+                dark:border-slate-600 dark:bg-slate-900/60 dark:text-slate-100">
+      <p>
+        Struktur lengkap Organisasi Santri AFM (Ketua Santri, Wakil, Sekretaris, Bendahara, dan divisi-divisi)
+        bisa kamu tampilkan di sini — baik berupa gambar bagan, tabel nama-nama pengurus, atau sekadar deskripsi.
+      </p>
+      <p class="mt-2">
+        Untuk sekarang, bagian ini bisa digunakan sebagai placeholder sampai data struktur santri difinalisasi.
+      </p>
+    </div>
+  </div>
+</section> -->
+
+{% endblock %}

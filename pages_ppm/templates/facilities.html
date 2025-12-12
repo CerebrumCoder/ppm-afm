@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Fasilitas PPM Al-Faqih Mandiri{% endblock %}
+
+{% block content %}
+
+<!-- HERO FASILITAS -->
+<section class="relative mb-10 overflow-hidden rounded-3xl text-white">
+  <img
+    src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//mf1.jpg"
+    alt="Fasilitas PPM AFM"
+    class="absolute inset-0 h-full w-full object-cover"
+  />
+  <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/70"></div>
+
+  <div class="relative z-10 px-6 py-16 sm:px-10 lg:px-16 lg:py-20">
+    <div class="mx-auto max-w-3xl text-center space-y-4">
+      <p class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-lime-200">
+        Fasilitas PPM AFM
+      </p>
+      <h1 class="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
+        Fasilitas yang <span class="font-bold text-[var(--nav-link-color-active)]">Menunjang Pembinaan</span>
+      </h1>
+      <p class="text-sm leading-relaxed text-slate-100 sm:text-base">
+        Menunjang kegiatan pembelajaran dan pengembangan diri santri dengan fasilitas yang memadai —
+        mulai dari masjid, asrama, dapur, hingga keamanan 24 jam.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FASILITAS UTAMA (CAROUSEL + GRID) -->
+<section class="mb-12">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0">
+    <div class="mb-4 text-center">
+      <h2 class="text-xl font-semibold tracking-tight sm:text-2xl">
+        Fasilitas Utama
+      </h2>
+      <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+        Fasilitas utama yang digunakan santri dalam keseharian di PPM Al-Faqih Mandiri.
+      </p>
+    </div>
+
+    <!-- Mobile: horizontal scroll, Desktop: grid -->
+    <div class="flex gap-4 overflow-x-auto pb-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible">
+      <!-- Masjid -->
+      <div class="min-w-[230px] sm:min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative h-40 overflow-hidden">
+          <img
+            src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//mf1.jpg"
+            alt="Masjid PPM AFM"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-2 pt-8 text-[11px] font-semibold">
+            Masjid
+          </div>
+        </div>
+        <div class="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-300">
+          Pusat ibadah dan kegiatan belajar mengajar santri.
+        </div>
+      </div>
+
+      <!-- Asrama Putra -->
+      <div class="min-w-[230px] sm:min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative h-40 overflow-hidden">
+          <img
+            src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//asramaputra.jpg"
+            alt="Asrama Putra PPM AFM"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-2 pt-8 text-[11px] font-semibold">
+            Asrama Putra
+          </div>
+        </div>
+        <div class="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-300">
+          Hunian santri putra yang nyaman dan kondusif.
+        </div>
+      </div>
+
+      <!-- Asrama Putri -->
+      <div class="min-w-[230px] sm:min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative h-40 overflow-hidden">
+          <img
+            src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//asramaputri.jpg"
+            alt="Asrama Putri PPM AFM"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-2 pt-8 text-[11px] font-semibold">
+            Asrama Putri
+          </div>
+        </div>
+        <div class="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-300">
+          Hunian santri putri dengan lingkungan pembinaan yang hangat.
+        </div>
+      </div>
+
+      <!-- Dapur -->
+      <div class="min-w-[230px] sm:min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative h-40 overflow-hidden">
+          <img
+            src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//dapur.jpg"
+            alt="Dapur PPM AFM"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-2 pt-8 text-[11px] font-semibold">
+            Dapur & Ruang Makan
+          </div>
+        </div>
+        <div class="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-300">
+          Tempat memasak, mengambil, dan menikmati makanan santri.
+        </div>
+      </div>
+
+      <!-- Basement -->
+      <div class="min-w-[230px] sm:min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white/95 shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="relative h-40 overflow-hidden">
+          <img
+            src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//basement.jpg"
+            alt="Basement PPM AFM"
+            class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-3 pb-2 pt-8 text-[11px] font-semibold">
+            Basement
+          </div>
+        </div>
+        <div class="px-3 py-2 text-[11px] text-slate-600 dark:text-slate-300">
+          Area parkir dengan CCTV untuk keamanan kendaraan santri.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL FASILITAS UTAMA -->
+<section class="mb-12">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0 space-y-8">
+
+    <!-- Masjid -->
+    <div class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+        <img
+          src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//mf1.jpg"
+          alt="Masjid Fatimah PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+      <div class="space-y-2 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
+        <h3 class="text-base font-semibold">Masjid Fatimah</h3>
+        <p>
+          Masjid Fatimah PPM Al-Faqih Mandiri menjadi pusat kegiatan ibadah dan kegiatan belajar mengajar.
+          Di sinilah santri mengkaji Al-Qur’an, Hadits, dan kajian keislaman lainnya.
+        </p>
+      </div>
+    </div>
+
+    <!-- Asrama Putra -->
+    <div class="grid gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:items-center">
+      <div class="order-last md:order-first space-y-2 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
+        <h3 class="text-base font-semibold">Asrama Putra</h3>
+        <p>
+          Asrama Putra PPM AFM merupakan tempat tinggal para santri putra. Setiap kamar diisi oleh dua orang
+          dengan kasur bertingkat yang nyaman, sehingga memudahkan pembinaan dan kebersamaan.
+        </p>
+      </div>
+      <div class="order-first overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:order-last dark:border-slate-700 dark:bg-slate-900/80">
+        <img
+          src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//asramaputra.jpg"
+          alt="Asrama Putra PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+    </div>
+
+    <!-- Asrama Putri -->
+    <div class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+        <img
+          src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//asramaputri.jpg"
+          alt="Asrama Putri PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+      <div class="space-y-2 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
+        <h3 class="text-base font-semibold">Asrama Putri</h3>
+        <p>
+          Asrama Putri PPM AFM adalah hunian bagi santri putri dengan lingkungan yang aman, terjaga, dan
+          memiliki nuansa kekeluargaan untuk mendukung pembinaan akhlak dan kemandirian.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dapur -->
+    <div class="grid gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:items-center">
+      <div class="order-last md:order-first space-y-2 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
+        <h3 class="text-base font-semibold">Dapur & Ruang Makan</h3>
+        <p>
+          Dapur dan ruang makan PPM AFM menjadi pusat distribusi makanan bagi santri. Di sini santri mengambil
+          makanan dan makan bersama, memperkuat ukhuwah dan adab makan jama’i.
+        </p>
+      </div>
+      <div class="order-first overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:order-last dark:border-slate-700 dark:bg-slate-900/80">
+        <img
+          src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//dapur.jpg"
+          alt="Dapur PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+    </div>
+
+    <!-- Basement -->
+    <div class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center">
+      <div class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+        <img
+          src="https://ahxenhvigfansvzqkksq.supabase.co/storage/v1/object/public/websiteppm//basement.jpg"
+          alt="Basement PPM AFM"
+          class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+      <div class="space-y-2 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
+        <h3 class="text-base font-semibold">Basement & Parkir</h3>
+        <p>
+          PPM AFM menyediakan fasilitas basement yang luas sebagai tempat parkir kendaraan santri. Dilengkapi
+          sistem CCTV dan penjagaan, keamanan kendaraan santri lebih terjamin.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FASILITAS PENDUKUNG -->
+<section class="mb-8">
+  <div class="mx-auto max-w-5xl px-2 sm:px-0">
+    <div class="mb-4 text-center">
+      <h3 class="text-xl font-semibold sm:text-2xl">
+        Fasilitas Pendukung Lainnya
+      </h3>
+      <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
+        Beragam fasilitas tambahan yang membantu santri beraktivitas dengan nyaman setiap hari.
+      </p>
+    </div>
+
+    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+      <!-- Aula Serbaguna -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-lime-100 text-lime-700 dark:bg-lime-900/40 dark:text-lime-200">
+          🏫
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Aula Serbaguna</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Digunakan untuk kajian, pertemuan, dan kegiatan internal. Dilengkapi UB Mart.
+        </p>
+      </div>
+
+      <!-- Lapangan Volly -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-200">
+          🏐
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Lapangan Volly</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Area olahraga untuk menjaga kebugaran fisik santri.
+        </p>
+      </div>
+
+      <!-- WiFi -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-200">
+          📶
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">WiFi</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Koneksi internet untuk mendukung kegiatan belajar dan tugas kampus.
+        </p>
+      </div>
+
+      <!-- Keamanan 24 Jam -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-200">
+          🛡️
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Keamanan 24 Jam</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Dijaga oleh Senkom dan dilengkapi CCTV di titik-titik penting.
+        </p>
+      </div>
+
+      <!-- Mesin Cuci -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">
+          🧺
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Mesin Cuci</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Area untuk mencuci dan menjemur pakaian bersama.
+        </p>
+      </div>
+
+      <!-- Air Minum Refill -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-200">
+          💧
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Air Minum Refill</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Air minum isi ulang tersedia di beberapa titik asrama.
+        </p>
+      </div>
+
+      <!-- Kamar 2 Orang -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-200">
+          🛏️
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Kamar 2 Orang</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Kamar berisi 2 santri dengan kasur bertingkat, menjaga kenyamanan dan kerapian.
+        </p>
+      </div>
+
+      <!-- Makan 2x Sehari -->
+      <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm
+                  dark:border-slate-700 dark:bg-slate-900/80">
+        <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-200">
+          🍽️
+        </div>
+        <h4 class="mb-1 text-sm font-semibold">Makan 2x Sehari</h4>
+        <p class="text-slate-600 dark:text-slate-200">
+          Kebutuhan makan santri terjamin dengan menu bergizi dua kali sehari.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,10 +1,14 @@
+{% load static %}
 {% with match=request.resolver_match %}
+
+
 <nav class="navbar text-white">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2">
     <!-- Brand (logo + nama) -->
     <a href="{% url 'pages:home' %}" class="flex items-center gap-2">
       <div class="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--nav-link-color-active)] text-[var(--primary-color)] font-extrabold shadow">
-        <span class="text-base leading-none">🏠</span>
+        <!-- <span class="text-base leading-none">🏠</span> -->
+        <img src="{% static 'img/logo-ppm.png' %}" class="text-base leading-none">
       </div>
       <div class="flex flex-col leading-tight">
         <span class="text-xs font-semibold tracking-wide">
@@ -17,23 +21,29 @@
     </a>
 
     <!-- Desktop nav -->
-    <div class="hidden items-center gap-1.5 md:flex">
+    <div class="hidden items-center gap-1.5 nav:flex">
       <!-- Beranda -->
-      <a href="{% url 'pages:home' %}" class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium {% if match and match.url_name == 'home' %}nav-link-active{% endif %}">
+      <a
+        href="{% url 'pages:home' %}"
+        class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium
+               {% if match and match.app_name == 'pages' and match.url_name == 'home' %}nav-link-active{% endif %}"
+      >
         Beranda
       </a>
 
       <!-- Tentang AFM -->
       <a
         href="{% url 'pages:company_profile' %}"
-        class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium {% if match and match.app_name == 'pages' and match.url_name == 'company_profile' %}nav-link-active{% endif %}"
+        class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium
+               {% if match and match.app_name == 'pages' and match.url_name == 'company_profile' %}nav-link-active{% endif %}"
       >
         Tentang AFM
       </a>
 
-      <!-- Struktur (dropdown) -->
-      <div class="relative group">
+      <!-- Struktur (dropdown klik di desktop) -->
+      <div class="relative">
         <button
+          id="struktur-toggle"
           type="button"
           class="nav-link inline-flex items-center gap-1 rounded-full px-2.5 py-1.5 text-[12px] font-medium"
         >
@@ -43,46 +53,67 @@
           </svg>
         </button>
         <div
-          class="invisible absolute right-0 mt-1.5 w-44 rounded-xl bg-white/95 py-1.5 text-[12px] text-slate-800 shadow-lg ring-1 ring-black/5 opacity-0 transition-all duration-150 group-hover:visible group-hover:opacity-100 dark:bg-slate-800 dark:text-slate-50"
+          id="struktur-menu"
+          class="absolute right-0 mt-1.5 hidden w-44 rounded-xl bg-white/95 py-1.5 text-[12px] text-slate-800 shadow-lg ring-1 ring-black/5 dark:bg-slate-800 dark:text-slate-50"
         >
-          <a href="#struktur-kepengurusan" class="block px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700">
+          <a href="{% url 'pages:pengurus_structure' %}" class="block px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700">
             Struktur Kepengurusan
           </a>
-          <a href="#struktur-santri" class="block px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700">
+          <!-- <a href="#struktur-santri" class="block px-3 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-700">
             Struktur Santri
-          </a>
+          </a> -->
         </div>
       </div>
 
-      <!-- Fasilitas -->
-      <a
-        href="#fasilitas"
-        class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium"
-      >
+      <!-- Fasilitas (anchor ke beranda) -->
+      <!-- <a href="{% url 'pages:facilities' %}" class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium">
         Fasilitas
-      </a>
+      </a> -->
 
-      <!-- Artikel AFM -->
-      <a href="{% url 'news:article_list' %}" class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium {% if match and match.app_name == 'news' %}nav-link-active{% endif %}">
+      <!-- Artikel AFM (publik) -->
+      <a
+        href="{% url 'news:article_list' %}"
+        class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium
+               {% if match and match.app_name == 'news' and 'manage' not in request.path %}nav-link-active{% endif %}"
+      >
         Artikel AFM
       </a>
 
-      <!-- Dark mode toggle (kecil) -->
+      <!-- Hanya staff yang lihat Admin Artikel + Logout -->
+      {% if request.user.is_staff %}
+        <a
+          href="{% url 'news:article_admin_list' %}"
+          class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium
+                 {% if match and match.app_name == 'news' and 'manage' in request.path %}nav-link-active{% endif %}"
+        >
+          Admin
+        </a>
+        <a
+          href="{% url 'logout' %}"
+          class="nav-link rounded-full px-2.5 py-1.5 text-[12px] font-medium"
+        >
+          Logout
+        </a>
+      {% endif %}
+
+      <!-- Dark mode toggle (desktop, pill) -->
       <button
         id="theme-toggle"
         type="button"
-        class="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-[11px] font-semibold hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-lime-400/70 dark:bg-black/20 dark:hover:bg-black/30"
-        aria-label="Toggle dark mode"
+        class="ml-2 inline-flex items-center gap-1 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] font-medium hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-lime-400/70 dark:border-black/40 dark:bg-black/30 dark:hover:bg-black/40"
+        aria-label="Toggle color mode"
       >
-        <span id="theme-toggle-icon" class="text-sm">🌙</span>
+        <span id="theme-toggle-icon" class="text-xs theme-toggle-icon">🌙</span>
+        <span id="theme-toggle-label" class="hidden sm:inline">Dark</span>
       </button>
+
     </div>
 
     <!-- Mobile menu button -->
     <button
       id="mobile-menu-btn"
       type="button"
-      class="inline-flex items-center justify-center rounded-md p-1.5 text-white hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-lime-400/70 md:hidden"
+      class="inline-flex items-center justify-center rounded-md p-1.5 text-white hover:bg-black/10 focus:outline-none focus:ring-2 focus:ring-lime-400/70 nav:hidden"
       aria-label="Toggle navigation"
     >
       <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -93,31 +124,81 @@
     </button>
   </div>
 
-  <!-- Mobile nav (juga dibuat lebih rapat) -->
-  <div id="mobile-menu" class="hidden border-t border-lime-700/40 bg-[var(--primary-color)] text-[12px] md:hidden">
+  <!-- Mobile nav -->
+  <div id="mobile-menu" class="hidden border-t border-lime-700/40 bg-[var(--primary-color)] text-[12px] nav:hidden">
     <div class="space-y-0.5 px-4 py-2">
-      <a href="/" class="block nav-link py-1.5">Beranda</a>
-      <a href="{% url 'pages:company_profile' %}" class="block nav-link py-1.5">Tentang AFM</a>
+      <a
+        href="{% url 'pages:home' %}"
+        class="block nav-link py-1.5
+               {% if match and match.app_name == 'pages' and match.url_name == 'home' %}nav-link-active{% endif %}"
+      >
+        Beranda
+      </a>
 
+      <a
+        href="{% url 'pages:company_profile' %}"
+        class="block nav-link py-1.5
+               {% if match and match.app_name == 'pages' and match.url_name == 'company_profile' %}nav-link-active{% endif %}"
+      >
+        Tentang AFM
+      </a>
+
+      <!-- Struktur mobile: judul + dropdown klik -->
       <div class="border-t border-white/10 pt-1.5 mt-1">
-        <div class="text-[10px] uppercase tracking-wide text-lime-200/70 mb-0.5">Struktur</div>
-        <a href="#struktur-kepengurusan" class="block nav-link py-1.5">Struktur Kepengurusan</a>
-        <a href="#struktur-santri" class="block nav-link py-1.5">Struktur Santri</a>
+        <button
+          id="struktur-mobile-toggle"
+          type="button"
+          class="flex w-full items-center justify-between nav-link py-1.5"
+        >
+          <span class="text-[12px] font-medium">Struktur</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="struktur-mobile-menu" class="mt-0.5 ml-3 hidden">
+          <a href="{% url 'pages:pengurus_structure' %}" class="block nav-link py-1.5">Struktur Kepengurusan</a>
+          <!-- <a href="#struktur-santri" class="block nav-link py-1.5">Struktur Santri</a> -->
+        </div>
       </div>
 
-      <a href="#fasilitas" class="block nav-link py-1.5">Fasilitas</a>
-      <a href="{% url 'news:article_list' %}" class="block nav-link py-1.5">Artikel AFM</a>
+      <!-- <a href="#fasilitas" class="block nav-link py-1.5">Fasilitas</a> -->
 
-      <div class="pt-1.5 border-top border-white/10 mt-1">
+      <a
+        href="{% url 'news:article_list' %}"
+        class="block nav-link py-1.5
+               {% if match and match.app_name == 'news' and 'manage' not in request.path %}nav-link-active{% endif %}"
+      >
+        Artikel AFM
+      </a>
+
+      {% if request.user.is_staff %}
+        <a
+          href="{% url 'news:article_admin_list' %}"
+          class="block nav-link py-1.5
+                 {% if match and match.app_name == 'news' and 'manage' in request.path %}nav-link-active{% endif %}"
+        >
+          Admin
+        </a>
+        <a
+          href="{% url 'logout' %}"
+          class="block nav-link py-1.5"
+        >
+          Logout
+        </a>
+      {% endif %}
+      
+      <!-- Dark mode toggle (mobile, button full width) -->
+      <div class="pt-1.5 border-t border-white/10 mt-1">
         <button
           id="theme-toggle-mobile"
           type="button"
-          class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-lime-400/70 dark:bg-black/20 dark:hover:bg-black/30"
+          class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-semibold hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-lime-400/70 dark:bg-black/20 dark:hover:bg-black/30"
         >
-          <span id="theme-toggle-icon-mobile">🌙</span>
-          <span>Dark mode</span>
+          <span id="theme-toggle-icon-mobile" class="theme-toggle-icon">🌙</span>
+          <span id="theme-toggle-label-mobile">Dark mode</span>
         </button>
       </div>
+
     </div>
   </div>
 </nav>

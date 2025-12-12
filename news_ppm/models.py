@@ -17,26 +17,18 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-class Tag(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    slug = models.SlugField(unique=True)
-
-    class Meta:
-        ordering = ["name"]
-    
-    def __str__(self):
-        return self.name
-    
 class NewsArticle(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     thumbnail = models.ImageField(upload_to='news_thumbnails/', blank=True, null=True)
+    
+    thumbnail_url = models.URLField(blank=True, null=True, help_text="Opsional: link gambar dari internet")
 
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
-
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
-    is_published = models.BooleanField(default=True)
+    # Di set False, tujuannya supaya admin bisa review dulu sebelum publish
+    is_published = models.BooleanField(default=False)
     published_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
