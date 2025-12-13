@@ -21,23 +21,39 @@
     <article class="overflow-hidden rounded-3xl border border-slate-200 bg-white/95 shadow-sm
                     dark:border-slate-700 dark:bg-slate-900/80">
 
-      <!-- Thumbnail dulu -->
-      {% if article.thumbnail or article.thumbnail_url %}
-        <div class="relative max-h-[380px] overflow-hidden">
-          {% if article.thumbnail %}
-            <img
-              src="{{ article.thumbnail.url }}"
-              alt="{{ article.title }}"
-              class="h-full w-full object-cover"
-            />
-          {% elif article.thumbnail_url %}
-            <img
-              src="{{ article.thumbnail_url }}"
-              alt="{{ article.title }}"
-              class="h-full w-full object-cover"
-            />
-          {% endif %}
-        </div>
+      <!-- Thumbnail dulu, bisa diklik (buka modal) -->
+      {% if article.thumbnail %}
+        {% with article.thumbnail.url as image_url %}
+          <button
+            type="button"
+            class="group block w-full bg-black"
+            data-article-img="{{ image_url }}"
+          >
+            <div class="mx-auto max-h-[380px] overflow-hidden">
+              <img
+                src="{{ image_url }}"
+                alt="{{ article.title }}"
+                class="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </button>
+        {% endwith %}
+      {% elif article.thumbnail_url %}
+        {% with article.thumbnail_url as image_url %}
+          <button
+            type="button"
+            class="group block w-full bg-black"
+            data-article-img="{{ image_url }}"
+          >
+            <div class="mx-auto max-h-[380px] overflow-hidden">
+              <img
+                src="{{ image_url }}"
+                alt="{{ article.title }}"
+                class="w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+          </button>
+        {% endwith %}
       {% endif %}
 
       <!-- Isi artikel -->
@@ -81,7 +97,66 @@
       </div>
     </article>
 
-    
   </div>
 </section>
+
+<!-- MODAL DETAIL GAMBAR ARTIKEL -->
+<div id="article-img-modal"
+     class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/70">
+  <div class="w-full max-w-4xl px-4">
+    <div class="relative max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-lg dark:bg-slate-900">
+      <button
+        type="button"
+        id="article-img-close"
+        class="absolute right-3 top-3 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-black/70 text-[11px] font-semibold text-white hover:bg-black/90"
+      >
+        ✕
+      </button>
+      <div class="flex max-h-[80vh] items-center justify-center bg-black">
+        <img
+          id="article-img-modal-img"
+          src=""
+          alt="{{ article.title }}"
+          class="max-h-[80vh] w-full object-contain"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.querySelector("[data-article-img]");
+    const modal = document.getElementById("article-img-modal");
+    const modalImg = document.getElementById("article-img-modal-img");
+    const closeBtn = document.getElementById("article-img-close");
+
+    if (!btn || !modal || !modalImg) return;
+
+    btn.addEventListener("click", function () {
+      const src = btn.getAttribute("data-article-img");
+      if (!src) return;
+      modalImg.src = src;
+      modal.classList.remove("hidden");
+    });
+
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function () {
+        modal.classList.add("hidden");
+        modalImg.src = "";
+      });
+    }
+
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        modal.classList.add("hidden");
+        modalImg.src = "";
+      }
+    });
+  });
+</script>
+
 {% endblock %}
+
+

@@ -1,0 +1,1 @@
+web: gunicorn ppm_afm_web.wsgi --log-file -
