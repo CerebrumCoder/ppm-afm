@@ -128,7 +128,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images) - Diurus oleh WhiteNoise
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Tambahkan baris ini jika folder static kamu ada di root project
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # Media files (Uploads) - Diurus oleh Cloudinary
 MEDIA_URL = '/media/'
