@@ -1,16 +1,10 @@
-"""
-WSGI config for ppm_afm_web project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
-"""
-
 import os
-
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ppm_afm_web.settings')
 
+# Ini bawaan Django (jangan dihapus)
 application = get_wsgi_application()
+
+# --- TAMBAHKAN BARIS INI SUPAYA VERCEL SENANG ---
+app = application

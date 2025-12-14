@@ -10,11 +10,11 @@ import dj_database_url
 
 # Kebutuhan integrasi web
 # 1. Neon.tech
-# Connection string: psql 'postgresql://neondb_owner:npg_Zb79KOEwItTu@ep-wispy-union-a1z5mjlt-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+# Connection string: psql 'postgresql://neondb_owner:npg_Zb79KOEwItTu@ep-wispy-union-a1z5mjlt-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require' (Database URL)
 # 2. Cloudinary (media)
 # Cloud Name: dhkvqtm9s
-# API Key: 163388715733427
-# API Secret: lmjWjKQ5zy2o-qYP9-_4iCdfX5A
+# Cloudinary API Key: 163388715733427
+# Cloudinary API Secret: lmjWjKQ5zy2o-qYP9-_4iCdfX5A
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
