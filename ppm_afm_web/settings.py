@@ -85,22 +85,13 @@ WSGI_APPLICATION = 'ppm_afm_web.wsgi.application'
 # --- DATABASE (Logika Ganda) ---
 
 # Cek apakah ada DATABASE_URL (artinya sedang di Vercel/Prod)
-if 'DATABASE_URL' in os.environ:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-            ssl_require=True
-        )
+i# Pakai SQLite (Aman & Permanen)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    # Kalau di laptop pakai SQLite
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
-    }
+}
 
 # --- CLOUDINARY (Media Storage) ---
 
@@ -112,10 +103,12 @@ CLOUDINARY_STORAGE = {
 }
 
 # Jika variabel CLOUDINARY ada, gunakan Cloudinary sebagai penyimpanan Media
-if os.environ.get('CLOUDINARY_API_KEY'):
+# GANTI LOGIKANYA JADI INI:
+if 'DATABASE_URL' in os.environ:
+    # Sedang di Vercel? WAJIB pakai Cloudinary (walaupun key-nya mungkin belum pas, setidaknya dia nyoba ke sana)
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 else:
-    # Kalau di laptop (dan belum set env), simpan lokal. Baru
+    # Sedang di Laptop? Pakai lokal
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Password validation
@@ -134,15 +127,9 @@ USE_TZ = True
 
 # --- STATIC & MEDIA FILES ---
 
+# Setup Folder Lokal (Gambar kesimpen di server)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# Whitenoise configuration
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
