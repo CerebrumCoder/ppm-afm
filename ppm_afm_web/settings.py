@@ -31,7 +31,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = ["*"] # Boleh "*" untuk awal, atau ".vercel.app" nanti
 
 # Penting buat Vercel supaya bisa Login Admin / Post Data
-CSRF_TRUSTED_ORIGINS = ["https://" + os.environ.get("VERCEL_URL", "127.0.0.1")]
+CSRF_TRUSTED_ORIGINS = ["https://" + os.environ.get("VERCEL_URL", "127.0.0.1"), 'https://*.railway.app']
 
 # Application definition
 INSTALLED_APPS = [
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
 
 
     # Apps Kamu
@@ -84,12 +86,11 @@ WSGI_APPLICATION = 'ppm_afm_web.wsgi.application'
 # Cek apakah ada DATABASE_URL (artinya sedang di Vercel/Prod)
 # Pakai SQLite (Aman & Permanen)
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3', 
+        conn_max_age=600
+    )
 }
-
 # --- CLOUDINARY (Media Storage) ---
 
 # Konfigurasi Cloudinary
@@ -124,14 +125,18 @@ USE_TZ = True
 
 # --- STATIC & MEDIA FILES ---
 
-# Setup Folder Lokal (Gambar kesimpen di server)
+# Static files (CSS, JavaScript, Images) - Diurus oleh WhiteNoise
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files (Uploads) - Diurus oleh Cloudinary
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Login settings
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'news:article_admin_list'
-LOGOUT_REDIRECT_URL = 'pages:home'
+# Konfigurasi Kunci Cloudinary
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
