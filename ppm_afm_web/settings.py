@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+
     # Apps Kamu
     "news_ppm",
     "pages_ppm",
@@ -48,7 +51,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware', # PENTING BUAT VERCEL. TIDAK TERLALU BUTUH
+    'whitenoise.middleware.WhiteNoiseMiddleware', # PENTING BUAT VERCEL
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -132,7 +135,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'news:article_admin_list'
 LOGOUT_REDIRECT_URL = 'pages:home'
-
-# Masukkan ini di bagian paling bawah file settings.py kamu
-# Supaya Django pakai sistem penyimpanan file biasa (folder lokal)
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField' # Opsional, standar django 4+
