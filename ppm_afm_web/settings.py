@@ -115,7 +115,7 @@ CLOUDINARY_STORAGE = {
 if os.environ.get('CLOUDINARY_API_KEY'):
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 else:
-    # Kalau di laptop (dan belum set env), simpan lokal
+    # Kalau di laptop (dan belum set env), simpan lokal. Baru
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 # Password validation
