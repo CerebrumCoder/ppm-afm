@@ -14,7 +14,7 @@ import dj_database_url
 # 2. Cloudinary (media)
 # Cloud Name: dhkvqtm9s
 # Cloudinary API Key: 163388715733427
-# Cloudinary API Secret: lmjWjKQ5zy2o-qYP9-_4iCdfX5A
+# API Secret: lmjWjKQ5zy2o-qYP9-_4iCdfX5A
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
