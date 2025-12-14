@@ -134,7 +134,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Media files (Uploads) - Diurus oleh Cloudinary
+# Media files (Uploads) - Diurus oleh Cloudinary safa
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
