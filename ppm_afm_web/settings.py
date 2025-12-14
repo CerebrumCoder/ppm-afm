@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'ppm_afm_web.wsgi.application'
 # --- DATABASE (Logika Ganda) ---
 
 # Cek apakah ada DATABASE_URL (artinya sedang di Vercel/Prod)
-i# Pakai SQLite (Aman & Permanen)
+# Pakai SQLite (Aman & Permanen)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
