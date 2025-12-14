@@ -125,20 +125,36 @@ USE_TZ = True
 
 # --- STATIC & MEDIA FILES ---
 
-# Static files (CSS, JavaScript, Images) - Diurus oleh WhiteNoise
+# 1. URL dan Folder tempat mengumpulkan file statis
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Tambahkan baris ini jika folder static kamu ada di root project
+# Folder statis tambahan (misal kamu taruh gambar di root folder)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Media files (Uploads) - Diurus oleh Cloudinary dan teman-teman
+# 2. DEFINISI PENYIMPANAN (PENTING! INI YANG BIKIN ERROR)
+# Kita definisikan cara baru (STORAGES) dan cara lama (STATICFILES_STORAGE)
+# agar semua library senang.
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Fallback untuk library lama yang masih mencari variabel ini
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# 3. Media Files (Upload user) - Masuk ke Cloudinary
 MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Konfigurasi Kunci Cloudinary
+# 4. Konfigurasi Kunci Cloudinary
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
