@@ -62,7 +62,7 @@
         <div class="mb-2 flex flex-wrap items-center gap-2 text-[11px]">
           <span class="uppercase tracking-wide text-lime-700 dark:text-lime-300">
             {% if article.published_at %}
-              {{ article.published_at|date:"j F Y, H:i" }}
+              {{ article.published_at|date:"j F Y" }}
             {% else %}
               Belum dijadwalkan
             {% endif %}

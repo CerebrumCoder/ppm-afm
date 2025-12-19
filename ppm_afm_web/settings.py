@@ -41,10 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary_storage',
     'django.contrib.staticfiles',
-    'cloudinary',
-
 
     # Apps Kamu
     "news_ppm",
@@ -93,13 +90,6 @@ DATABASES = {
 }
 # --- CLOUDINARY (Media Storage) ---
 
-# Konfigurasi Cloudinary
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
-
 # Jika variabel CLOUDINARY ada, gunakan Cloudinary sebagai penyimpanan Media
 # GANTI LOGIKANYA JADI INI:
 if 'DATABASE_URL' in os.environ:
@@ -116,6 +106,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+LOGIN_URL = 'login'
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
@@ -134,29 +126,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# 2. DEFINISI PENYIMPANAN (PENTING! INI YANG BIKIN ERROR)
-# Kita definisikan cara baru (STORAGES) dan cara lama (STATICFILES_STORAGE)
-# agar semua library senang.
-
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
-    },
-}
-
 # Fallback untuk library lama yang masih mencari variabel ini
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# 3. Media Files (Upload user) - Masuk ke Cloudinary
 MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-# 4. Konfigurasi Kunci Cloudinary
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
