@@ -1,26 +1,28 @@
-
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.shortcuts import render, redirect
-from .models import CompanyProfile, SiteStats
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import JsonResponse, HttpResponseNotAllowed
 
-# Untuk halaman depan dan pass data statistik PPM AFM
-from .models import SiteStats
+from .models import CompanyProfile, SiteStats, GalleryPhoto
+from .forms import SiteStatsForm, GalleryPhotoForm
 
+# --- VIEW HALAMAN DEPAN ---
+
+# --- PUBLIC ---
 def home(request):
     stats, _ = SiteStats.objects.get_or_create(pk=1)
     return render(request, "home.html", {"stats": stats})
 
-
 def company_profile(request):
-    stats, _ = SiteStats.objects.get_or_create(pk=1)
-    profile = CompanyProfile.objects.first()  # kalau kamu punya
+    # Ambil foto dari database
+    photos = GalleryPhoto.objects.all().order_by('-created_at')
+    
+    # Text lain tetap hardcode di HTML, jadi tidak perlu query model CompanyProfile
     return render(request, "company_profile.html", {
-        "stats": stats,
-        "profile": profile,
+        "photos": photos, 
     })
 
 def pengurus_structure(request):
@@ -29,50 +31,77 @@ def pengurus_structure(request):
 def facilities(request):
     return render(request, "facilities.html")
 
-# Untuk login sebagai admin aja
+
+# --- VIEW ADMIN GALERI (CUSTOM UI) ---
+
+def staff_required(user):
+    return user.is_staff
+
+@login_required
+@user_passes_test(staff_required)
+def gallery_admin_list(request):
+    photos = GalleryPhoto.objects.all().order_by('-created_at')
+    return render(request, "gallery_admin_list.html", {"photos": photos})
+
+@login_required
+@user_passes_test(staff_required)
+def gallery_admin_create(request):
+    if request.method == "POST":
+        form = GalleryPhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("pages:gallery_admin_list")
+    else:
+        form = GalleryPhotoForm()
+    return render(request, "gallery_admin_form.html", {"form": form})
+
+@login_required
+@user_passes_test(staff_required)
+def gallery_admin_delete(request, pk):
+    if request.method != "POST":
+        return HttpResponseNotAllowed(["POST"])
+    photo = get_object_or_404(GalleryPhoto, pk=pk)
+    photo.delete()
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return JsonResponse({"ok": True})
+    return redirect("pages:gallery_admin_list")
+
+
+# --- AUTHENTICATION (Kode Lama Anda) ---
 def afm_login(request):
-    # Kalo sudah login dan staff, tidak usah lihat form lagi
     if request.user.is_authenticated and request.user.is_staff:
         return redirect("news:article_admin_list")
     
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        next_url = request.POST.get("next") or request.GET.get("next")
-
         user = authenticate(request, username=username, password=password)
 
-        # Optional: hanya izinkan user is_staff yang bisa login ke panel ini
         if user is not None and user.is_staff:
             auth_login(request, user)
-            if next_url:
-                return redirect(next_url)
-            return redirect("news:article_admin_list")
+            next_url = request.POST.get("next") or request.GET.get("next")
+            return redirect(next_url or "news:article_admin_list")
         else:
-            messages.error(request, "Username atau password salah, atau Anda tidak memiliki hak akses admin.",)
+            messages.error(request, "Username atau password salah.")
     
-    # GET pertama kali atau kalau gagal login
     return render(request, "auth/login.html")
     
-# Untuk logout dari admin
 def afm_logout(request):
     auth_logout(request)
     return redirect("pages:home")
 
 @login_required
 def afm_change_password(request):
+    # ... (kode lama biarkan saja)
     if request.method == "POST":
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()
-            # Biar tidak logout setelah ubah password
             update_session_auth_hash(request, user)
             messages.success(request, "Password berhasil diubah.")
             return redirect("news:article_admin_list")
         else:
-            # form punya error detail, kita tampilkan di template
-            messages.error(request, "Gagal mengubah password. Periksa kembali isian kamu.")
+            messages.error(request, "Gagal mengubah password.")
     else:
         form = PasswordChangeForm(user=request.user)
-
     return render(request, "auth/change_password.html", {"form": form})

@@ -5,7 +5,6 @@
 
 {% block content %}
 
-<!-- HERO VIDEO -->
 <section class="relative mb-10 overflow-hidden rounded-3xl bg-[var(--primary-color)] text-white">
   <div class="absolute inset-0 opacity-50">
     <video
@@ -38,160 +37,80 @@
   </div>
 </section>
 
-<!-- GALERI & KEGIATAN -->
-<section class="mb-12">
-  <div class="mx-auto max-w-5xl px-2 sm:px-0">
-    <div class="mb-6 text-center">
-      <h2 class="text-xl font-semibold tracking-tight sm:text-2xl">
-        📸 Galeri & Kegiatan
+<section class="mb-16">
+  <div class="mx-auto max-w-6xl px-2 sm:px-4">
+    <div class="mb-8 flex flex-col items-center text-center">
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-slate-100">
+        📸 Galeri Kegiatan
       </h2>
-      <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
-        Cuplikan foto kegiatan santri PPM AFM
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 max-w-xl">
+        Intip keseruan dan kekompakan santri PPM AFM dalam berbagai kegiatan rutinitas, organisasi, hingga kebersamaan.
       </p>
     </div>
 
-    <!-- Grid 2–3 kolom (clickable) -->
-    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Contoh data: sesuaikan judul & deskripsi dengan foto kamu -->
-      <button type="button"
-        class="group relative overflow-hidden rounded-2xl text-left"
-        data-src="{% static 'img/about/img-1.avif' %}"
-        data-title="Kajian Qur'an Pagi"
-        data-desc="Santri mengikuti kajian Qur'an pagi bersama dewan guru di Masjid Fatimah."
-      >
-        <img
-          src="{% static 'img/about/img-1.avif' %}"
-          alt="Kegiatan PPM AFM - Kajian Qur'an"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
-          <p class="text-[11px] font-semibold text-white">
-            Foto Pagi PPM AFM
-          </p>
-          <p class="text-[10px] text-slate-200">
-            Asri dan bersihnya PPM AFM pada pagi hari.
-          </p>
-        </div>
-      </button>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      
+      {% if photos %}
+        {% for photo in photos %}
+          <button type="button"
+            class="group relative h-72 w-full overflow-hidden rounded-2xl bg-slate-200 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-lime-400"
+            data-src="{{ photo.image.url }}"
+            data-title="{{ photo.title }}"
+            data-desc="{{ photo.description }}"
+          >
+            <img 
+              src="{{ photo.image.url }}" 
+              alt="{{ photo.title }}" 
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
+            
+            <div class="absolute bottom-0 left-0 p-5 text-left w-full translate-y-2 transition-transform duration-300 group-hover:translate-y-0">
+              <span class="inline-block rounded-full bg-lime-400/20 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-lime-300 backdrop-blur-sm border border-lime-400/30 mb-2">
+                {{ photo.category|default:"KEGIATAN" }}
+              </span>
+              <h3 class="text-base font-bold text-white leading-tight mb-1 truncate">{{ photo.title }}</h3>
+              <p class="text-[11px] text-slate-200 line-clamp-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                {{ photo.description|truncatewords:15 }}
+              </p>
+            </div>
+          </button>
+        {% endfor %}
 
-      <button type="button"
-        class="group relative overflow-hidden rounded-2xl text-left"
-        data-src="{% static 'img/about/img-2.avif' %}"
-        data-title="Kegiatan Organisasi Santri"
-        data-desc="Pengurus OSF AFM sedang mengadakan musyawarah program kerja."
-      >
-        <img
-          src="{% static 'img/about/img-2.avif' %}"
-          alt="Kegiatan organisasi santri"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
-          <p class="text-[11px] font-semibold text-white">
-            AFTHER
-          </p>
-          <p class="text-[10px] text-slate-200">
-            Kegiatan outbonding seluruh civitas PPM AFM yang diselenggarakan oleh pamong.
-          </p>
+      {% else %}
+        <div class="col-span-full py-12 text-center rounded-2xl border border-dashed border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/50">
+          <p class="text-sm text-slate-500 dark:text-slate-400">Belum ada foto kegiatan yang diupload.</p>
         </div>
-      </button>
+      {% endif %}
 
-      <button type="button"
-        class="group relative overflow-hidden rounded-2xl text-left"
-        data-src="{% static 'img/about/img-3.avif' %}"
-        data-title="Kegiatan Totalan"
-        data-desc="Santri melakukan piket totalan untuk menjaga kebersihan asrama."
-      >
-        <img
-          src="{% static 'img/about/img-3.avif' %}"
-          alt="Kegiatan totalan santri"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
-          <p class="text-[11px] font-semibold text-white">
-            DOCSDAY 2024
-          </p>
-          <p class="text-[10px] text-slate-200">
-            Foto bersama seluruh civitas PPM AFM.
-          </p>
-        </div>
-      </button>
-
-      <button type="button"
-        class="group relative overflow-hidden rounded-2xl text-left"
-        data-src="{% static 'img/about/img-4.avif' %}"
-        data-title="Kegiatan Silat ASAD"
-        data-desc="Latihan rutin silat ASAD untuk menjaga kebugaran dan kedisiplinan."
-      >
-        <img
-          src="{% static 'img/about/img-4.avif' %}"
-          alt="Latihan silat santri"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
-          <p class="text-[11px] font-semibold text-white">
-            AFTHER
-          </p>
-          <p class="text-[10px] text-slate-200">
-            Kegiatan outbonding seluruh civitas PPM AFM yang diselenggarakan oleh pamong.
-          </p>
-        </div>
-      </button>
-
-      <button type="button"
-        class="group relative overflow-hidden rounded-2xl text-left"
-        data-src="{% static 'img/about/img-5.avif' %}"
-        data-title="Kegiatan Kebersamaan"
-        data-desc="Kegiatan kebersamaan santri di luar jadwal belajar sebagai penyegar suasana."
-      >
-        <img
-          src="{% static 'img/about/img-5.avif' %}"
-          alt="Kebersamaan santri PPM AFM"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-3 pb-2 pt-8">
-          <p class="text-[11px] font-semibold text-white">
-            Kebersamaan Santri
-          </p>
-          <p class="text-[10px] text-slate-200">
-            Menguatkan ukhuwah dan rasa saling memiliki.
-          </p>
-        </div>
-      </button>
-
-      {# tambahkan lagi button serupa kalau kamu punya foto tambahan #}
     </div>
   </div>
 </section>
 
-<!-- MODAL GALERI -->
-<div id="gallery-modal"
-     class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70">
-  <div class="w-full max-w-3xl px-4">
-    <div class="relative overflow-hidden rounded-3xl bg-white shadow-lg dark:bg-slate-900">
-      <button
-        type="button"
-        id="gallery-close"
-        class="absolute right-2 top-2 z-10 rounded-full bg-black/60 px-2 py-1 text-[10px] font-semibold text-white hover:bg-black/80 dark:bg-black/70"
-      >
-        ✕
-      </button>
-      <div class="bg-black">
-        <img id="gallery-modal-img" src="" alt="Foto kegiatan AFM" class="max-h-[70vh] w-full object-contain">
-      </div>
-      <div class="space-y-1 px-4 py-3 text-xs text-slate-800 dark:text-slate-100">
-        <h3 id="gallery-modal-title" class="text-sm font-semibold"></h3>
-        <p id="gallery-modal-desc" class="text-[11px] text-slate-600 dark:text-slate-300"></p>
-      </div>
+<div id="gallery-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/95 backdrop-blur-sm transition-opacity duration-300 p-4">
+  <button type="button" id="gallery-close" class="absolute top-6 right-6 z-20 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 hover:text-red-400 transition transform hover:rotate-90">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-8">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <div class="relative w-full max-w-5xl flex flex-col items-center">
+    <div class="relative w-full flex justify-center">
+      <img id="gallery-modal-img" src="" alt="Preview" class="max-h-[80vh] w-auto max-w-full rounded-2xl object-contain shadow-2xl ring-1 ring-white/10">
+    </div>
+    
+    <div class="mt-6 text-center max-w-2xl px-4 animate-fade-in-up">
+      <h3 id="gallery-modal-title" class="text-2xl font-bold text-white tracking-wide"></h3>
+      <p id="gallery-modal-desc" class="mt-2 text-sm text-slate-300 font-light leading-relaxed"></p>
     </div>
   </div>
 </div>
 
-<!-- SEJARAH SINGKAT -->
 <section class="mb-12">
   <div class="mx-auto max-w-5xl px-2 sm:px-0">
     <div class="grid gap-6 md:grid-cols-2 md:items-stretch">
-      <!-- Card 1 -->
-      <div class="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+      <div class="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
         <h3 class="mb-3 text-base font-semibold">
           🕰️ Sejarah Singkat Pendirian
         </h3>
@@ -208,8 +127,7 @@
         </div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
+      <div class="rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
         <div class="space-y-3 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
           <p>
             Di tengah hiruk-pikuk kehidupan kampus yang serba cepat, banyak mahasiswa merantau yang kehilangan arah
@@ -229,7 +147,6 @@
   </div>
 </section>
 
-<!-- FILOSOFI LOGO PPM AFM -->
 <section class="mb-12">
   <div class="mx-auto max-w-5xl px-2 sm:px-0">
     <div class="mb-4 text-center">
@@ -242,11 +159,9 @@
     </div>
 
     <div class="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] md:items-center">
-      <!-- Logo besar -->
       <div class="flex justify-center">
         <div class="w-full max-w-xs rounded-3xl border border-slate-200 bg-white/95 p-4 shadow-sm
                     dark:border-slate-700 dark:bg-slate-900/80">
-          <!-- ganti path kalau file logonya beda -->
           <img
             src="{% static 'img/logo-ppm.png' %}"
             alt="Logo PPM Al-Faqih Mandiri"
@@ -255,9 +170,7 @@
         </div>
       </div>
 
-      <!-- Penjelasan filosofi -->
       <div class="space-y-4 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
-        <!-- Atap & rumah -->
         <div>
           <h3 class="mb-1 text-sm font-semibold">🏠 Atap Rumah & Bentuk Gerbang</h3>
           <p>
@@ -267,7 +180,6 @@
           </p>
         </div>
 
-        <!-- Buku / pondasi -->
         <div>
           <h3 class="mb-1 text-sm font-semibold">📖 Buku sebagai Pondasi</h3>
           <p>
@@ -277,7 +189,6 @@
           </p>
         </div>
 
-        <!-- Tri Sukses Generus -->
         <div>
           <h3 class="mb-1 text-sm font-semibold">🎓 Tri Sukses Generus</h3>
           <p>Berbentuk angka 3 ke arah bawah terletak di pusat logo.</p>
@@ -288,7 +199,6 @@
           </ul>
         </div>
 
-        <!-- Warna hijau -->
         <div>
           <h3 class="mb-1 text-sm font-semibold">🌱 Makna Warna Hijau</h3>
           <p>
@@ -302,11 +212,9 @@
   </div>
 </section>
 
-<!-- VIDEO PEMBINA + TEKS PEMBINAAN -->
 <section class="mb-12">
   <div class="mx-auto max-w-5xl px-2 sm:px-0">
     <div class="grid gap-8 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] md:items-center">
-      <!-- Video -->
       <div>
         <div class="overflow-hidden rounded-3xl shadow-md ring-1 ring-slate-200 dark:ring-slate-700">
           <div class="aspect-video">
@@ -326,7 +234,6 @@
         </p>
       </div>
 
-      <!-- Teks pembinaan -->
       <div class="space-y-3 text-xs leading-relaxed text-slate-700 dark:text-slate-100">
         <h3 class="text-base font-semibold text-center md:text-left">
           👥 Pembinaan Generasi Muda
@@ -356,10 +263,8 @@
   </div>
 </section>
 
-<!-- VISI & MISI -->
 <section class="mb-12">
   <div class="mx-auto max-w-5xl px-2 sm:px-0">
-    <!-- Visi -->
     <div class="mb-8 text-center">
       <h3 class="text-xl font-semibold sm:text-2xl">
         🎯 Visi PPM Al-Faqih Mandiri
@@ -372,7 +277,6 @@
       </p>
     </div>
 
-    <!-- Misi Cards -->
     <div class="mb-4 text-center">
       <h3 class="text-xl font-semibold sm:text-2xl">
         🧭 Misi PPM Al-Faqih Mandiri
@@ -380,7 +284,6 @@
     </div>
 
     <div class="grid gap-4 md:grid-cols-3">
-      <!-- Card 1 -->
       <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
         <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-100">
           🏠
@@ -393,7 +296,6 @@
         </p>
       </div>
 
-      <!-- Card 2 -->
       <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
         <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-100">
           📚
@@ -406,7 +308,6 @@
         </p>
       </div>
 
-      <!-- Card 3 -->
       <div class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 text-xs shadow-sm dark:border-slate-700 dark:bg-slate-900/80">
         <div class="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-100">
           💡
@@ -420,6 +321,7 @@
       </div>
     </div>
   </div>
+  
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const modal = document.getElementById("gallery-modal");
@@ -430,32 +332,42 @@
 
       if (!modal) return;
 
-      // buka modal ketika klik item galeri
-      document.querySelectorAll("button[data-src][data-title]").forEach(btn => {
+      // Buka modal saat klik foto
+      document.querySelectorAll("button[data-src]").forEach(btn => {
         btn.addEventListener("click", function () {
           const src = btn.dataset.src;
           const title = btn.dataset.title || "";
           const desc = btn.dataset.desc || "";
 
-          if (modalImg) modalImg.src = src;
-          if (modalTitle) modalTitle.textContent = title;
-          if (modalDesc) modalDesc.textContent = desc;
+          modalImg.src = src;
+          modalTitle.textContent = title;
+          modalDesc.textContent = desc;
 
           modal.classList.remove("hidden");
+          modal.classList.add("flex");
         });
       });
 
-      // tombol close
-      if (modalClose) {
-        modalClose.addEventListener("click", function () {
-          modal.classList.add("hidden");
-        });
+      // Fungsi tutup modal
+      function closeModal() {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        modalImg.src = ""; 
       }
 
-      // klik area gelap di luar card -> tutup modal
+      if (modalClose) modalClose.addEventListener("click", closeModal);
+
+      // Tutup jika klik area gelap
       modal.addEventListener("click", function (e) {
         if (e.target === modal) {
-          modal.classList.add("hidden");
+          closeModal();
+        }
+      });
+      
+      // Tutup dengan tombol ESC
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
         }
       });
     });
@@ -464,5 +376,3 @@
 </section>
 
 {% endblock %}
-
-

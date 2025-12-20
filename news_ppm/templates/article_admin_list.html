@@ -11,12 +11,17 @@
         <p class="mt-1 text-xs text-slate-600 dark:text-slate-300">
           Kelola berita & pengumuman PPM Al-Faqih Mandiri.
         </p>
-        <a
-          href="{% url 'change_password' %}"
-          class="mt-2 inline-flex items-center rounded-full border border-slate-300 px-3 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800"
-        >
-          Ubah password saya
-        </a>
+
+        <!-- Tombol Ubah Password dan Kelola Galeri untuk akses cepat. -->
+        <div class="mt-3 flex flex-wrap gap-2">
+          <a href="{% url 'pages:change_password' %}" class="inline-flex items-center gap-1 rounded-full border border-slate-300 px-3 py-1.5 text-[11px] font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800 transition">
+            🔑 Ubah Password
+          </a>
+          
+          <a href="{% url 'pages:gallery_admin_list' %}" class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-3 py-1.5 text-[11px] font-medium text-white hover:bg-slate-700 transition shadow-sm">
+            📸 Kelola Galeri (Tentang AFM)
+          </a>
+        </div>
       </div>
 
       <a
